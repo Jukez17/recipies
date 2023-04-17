@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
+import './screens/splash.dart';
+import './screens/auth_screen.dart';
 import './screens/tabs.dart';
-
-final theme = ThemeData(
-  useMaterial3: true,
-  colorScheme: ColorScheme.fromSeed(
-    brightness: Brightness.dark,
-    seedColor: const Color.fromARGB(255, 131, 57, 0),
-  ),
-  textTheme: GoogleFonts.latoTextTheme(),
-);
 
 void main() {
   runApp(
@@ -26,9 +21,40 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: theme,
-      home: const TabsScreen(),
-    );
+    final Future<FirebaseApp> initialization = Firebase.initializeApp();
+    return FutureBuilder(
+        future: initialization,
+        builder: (context, appSnapshot) {
+          return MaterialApp(
+            theme: ThemeData(
+                useMaterial3: true,
+                colorScheme: ColorScheme.fromSeed(
+                  brightness: Brightness.dark,
+                  seedColor: const Color.fromARGB(255, 0, 131, 4),
+                ),
+                textTheme: GoogleFonts.latoTextTheme(),
+                buttonTheme: ButtonTheme.of(context).copyWith(
+                  buttonColor: Colors.pink,
+                  textTheme: ButtonTextTheme.primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                )),
+            home: appSnapshot.connectionState != ConnectionState.done
+                ? const SplashScreen()
+                : StreamBuilder(
+                    stream: FirebaseAuth.instance.authStateChanges(),
+                    builder: (ctx, userSnapshot) {
+                      if (userSnapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return const SplashScreen();
+                      }
+                      if (userSnapshot.hasData) {
+                        return const TabsScreen();
+                      }
+                      return const AuthScreen();
+                    }),
+          );
+        });
   }
 }

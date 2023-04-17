@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1072430459124",
+    "firebase_url": "https://meal-recipies-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "meal-recipies",
+    "storage_bucket": "meal-recipies.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072430459124:android:018833fd092b125e20d6a1",
+        "android_client_info": {
+          "package_name": "com.example.recipies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1072430459124-oajkufkhlqkj79fk7js9q52v7aq9dab4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_Rj23nd1SRJhbU8QTiVhtofxEXvxXfpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1072430459124-oajkufkhlqkj79fk7js9q52v7aq9dab4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

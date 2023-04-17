@@ -12,7 +12,8 @@ class MealItemTrait extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
+    return Row(
+      children: [
       Icon(
         icon,
         size: 17,

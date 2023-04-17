@@ -24,7 +24,7 @@ class MealItem extends StatelessWidget {
         meal.affordability.name.substring(1);
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8),
@@ -73,7 +73,7 @@ class MealItem extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MealItemTrait(
                           icon: Icons.schedule,

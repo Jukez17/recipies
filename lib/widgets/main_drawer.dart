@@ -1,12 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends StatefulWidget {
   const MainDrawer({super.key, required this.onSelectScreen});
 
   final void Function(String identifier) onSelectScreen;
 
   @override
+  State<MainDrawer> createState() => _MainDrawerState();
+}
+
+class _MainDrawerState extends State<MainDrawer> {
+  PackageInfo _packageInfo = PackageInfo(
+    appName: 'Unknown',
+    packageName: 'Unknown',
+    version: 'Unknown',
+    buildNumber: 'Unknown',
+    buildSignature: 'Unknown',
+    installerStore: 'Unknown',
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _initPackageInfo();
+  }
+
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final version = _packageInfo.version.toString();
+    final buildNumber = _packageInfo.buildNumber.toString();
     return Drawer(
       child: Column(
         children: [
@@ -56,7 +86,7 @@ class MainDrawer extends StatelessWidget {
                   ),
             ),
             onTap: () {
-              onSelectScreen('meals');
+              widget.onSelectScreen('meals');
             },
           ),
           ListTile(
@@ -73,8 +103,20 @@ class MainDrawer extends StatelessWidget {
                   ),
             ),
             onTap: () {
-              onSelectScreen('filters');
+              widget.onSelectScreen('filters');
             },
+          ),
+          const Spacer(),
+          ListTile(
+            title: Center(
+              child: Text(
+                '$version.$buildNumber',
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Theme.of(context).colorScheme.onBackground,
+                      fontSize: 24,
+                    ),
+              ),
+            ),
           ),
         ],
       ),

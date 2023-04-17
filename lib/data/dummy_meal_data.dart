@@ -70,8 +70,8 @@ const dummyMeals = [
       'c3',
     ],
     title: 'Classic Hamburger',
-    affordability: Affordability.pricey,
-    complexity: Complexity.simple,
+    affordability: Affordability.luxurious,
+    complexity: Complexity.challenging,
     imageUrl:
         'https://cdn.pixabay.com/photo/2014/10/23/18/05/burger-500054_1280.jpg',
     duration: 45,
